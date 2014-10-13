@@ -3,7 +3,9 @@
 NAME=spark
 PID_FILE=/var/run/$NAME.pid
 
-DAEMON="<%= @install_dir %>/spark/sbin/start-master.sh --ip <%= @master_node %>"
+export SPARK_MASTER_IP=<%= @master_node %>
+
+DAEMON="<%= @install_dir %>/spark/sbin/start-master.sh"
 
 start() {
   if [ -f $PID_FILE ]

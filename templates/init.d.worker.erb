@@ -18,7 +18,7 @@ start() {
         start
       fi
     else
-        exec $DAEMON >> /var/log/spark-master.log 2>&1 &
+        exec $DAEMON >> /var/log/spark-worker.log 2>&1 &
         echo $! > $PID_FILE;
     fi
 }
