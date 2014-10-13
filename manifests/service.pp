@@ -2,7 +2,8 @@
 class spark::service(
 	$install_dir = $spark::install_dir,
 	$mode = $spark::mode,
-	$master_node = $spark::master_node
+	$master_node = $spark::master_node,
+	$master_port = $spark::master_port
 	){
 
 	if $mode == 'master' {

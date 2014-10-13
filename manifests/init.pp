@@ -3,6 +3,7 @@ include stdlib
 class spark (
 	$mode,
 	$master_node,
+	$master_port = $spark::params::master_port,
 	$version = $spark::params::version,
 	$download_url = $spark::params::download_url,
 	$download_dir = $spark::params::download_dir,
