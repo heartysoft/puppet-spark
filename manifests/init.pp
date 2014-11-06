@@ -3,6 +3,9 @@ include stdlib
 class spark (
 	$mode,
 	$master_node,
+	$master_recovery_zookeeper = $spark::params::master_recovery_zookeeper,
+	$max_worker_ram = $spark::params::max_worker_ram,
+	$max_worker_cores = $spark::params::max_worker_cores,
 	$master_port = $spark::params::master_port,
 	$version = $spark::params::version,
 	$download_url = $spark::params::download_url,

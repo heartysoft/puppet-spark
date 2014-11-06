@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export SPARK_MASTER_IP=<%= @master_node %>
+<% if @master_recovery_zookeeper %>
+export SPARK_DAEMON_JAVA_OPTS="-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=<%= @master_recovery_zookeeper %>"
+<% end %>
+

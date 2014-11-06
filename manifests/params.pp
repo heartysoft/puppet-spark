@@ -6,4 +6,7 @@ class spark::params {
 	$install_method = 'wget'
 	$install_dir = '/var/lib/spark'
 	$tarball = "${version}.tgz"
+	$max_worker_ram = undef
+	$max_worker_cores = undef
+	$master_recovery_zookeeper = undef
 }

@@ -1,57 +1,31 @@
 #!/bin/sh
 
 NAME=spark
-PID_FILE=/var/run/$NAME.pid
-
-export SPARK_MASTER_IP=<%= @master_node %>
 
 DAEMON="<%= @install_dir %>/spark/sbin/start-master.sh"
+SDAEMON="<%= @install_dir %>/spark/sbin/stop-master.sh"
 
 start() {
-  if [ -f $PID_FILE ]
-    then
-      PID=`cat $PID_FILE`
-      if [ -z "`ps -ef | awk '{print $2}' | grep "^$PID$"`" ]; then
-        echo "\n$PID_FILE exists, process is already running"
-        exit 0
-      else
-        echo "\n$PID_FILE exists but the process is not running. Deleting $PID_FILE and re-trying"
-        rm -f $PID_FILE
-        start
-      fi
-    else
-        exec $DAEMON >> /var/log/spark-master.log 2>&1 &
-        echo $! > $PID_FILE;
-    fi
+  echo "Starting Spark Master" &&
+  exec $DAEMON &&
+  echo "OK" &&
+  return 0
 }
 
 stop() {
-  if [ ! -f $PID_FILE ]
-  then
-    echo "\n$PID_FILE does not exist, process is not running"
-    exit 1
-  else
-    kill `cat $PID_FILE`;
-    rm -f $PID_FILE;
-    echo "\n$NAME stopped"
-    exit 0
-  fi
+  echo "Stopping Spark Master" &&
+  exec $SDAEMON &&
+  echo "OK" &&
+  exit 0
 }
 
 status() {
-  if [ -f $PID_FILE ]
+ if ps auwx | grep "[j]ava" | grep "[s]park" > /dev/null
   then
-    PID=`cat $PID_FILE`
-    if [ -z "`ps -ef | awk '{print $2}' | grep "^$PID$"`" ]
-    then
-      echo "$NAME stopped but pid file exists"
-      exit 1
-    else
-      echo "$NAME running with pid $PID"
-      exit 0
-    fi
+    echo "Spark Master is running."
+    exit 0
   else
-    echo "$NAME stopped"
+    echo "Spark Master is stopped."
     exit 1
   fi
 }
@@ -61,15 +35,15 @@ case "$1" in
     status
 	;;
   start)
-    echo -n "Starting daemon: "$NAME
+    echo "Starting daemon: "$NAME
     start
 	;;
   stop)
-    echo -n "Stopping daemon: "$NAME
+    echo "Stopping daemon: "$NAME
     stop
 	;;
   restart)
-    echo -n "Restarting daemon: "$NAME
+    echo "Restarting daemon: "$NAME
 	  stop
     start
 	;;

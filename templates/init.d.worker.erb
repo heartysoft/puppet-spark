@@ -3,7 +3,7 @@
 NAME=spark
 PID_FILE=/var/run/$NAME.pid
 
-DAEMON="<%= @install_dir %>/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://<%= @master_node %>:<%= @master_port %>"
+DAEMON="<%= @install_dir %>/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://<%= @master_node %>:<%= @master_port %><% if @max_worker_cores %> -c <%= @max_worker_cores %><% end %><% if @max_worker_ram %> -m <%= @max_worker_ram %><% end %>"
 
 start() {
   if [ -f $PID_FILE ]
