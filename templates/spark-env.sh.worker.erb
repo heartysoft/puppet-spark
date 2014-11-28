@@ -1,0 +1,4 @@
+#!/bin/sh
+
+<% if @max_worker_cores %>export SPARK_WORKER_CORES=<%= @max_worker_cores %><% end %>
+<% if @max_worker_ram %>export SPARK_WORKER_MEMORY=<%= @max_worker_ram %><% end %>

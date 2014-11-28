@@ -25,6 +25,13 @@ class spark::service(
 			notify => Service['spark'],
 		}
 	} else {
+		file { "$install_dir/spark/conf/spark-env.sh":
+			ensure => present,
+			content => template('spark/spark-env.sh.worker.erb'),
+			mode => '0755',
+			notify => Service['spark'],
+		}
+		->
 		file { '/etc/init.d/spark':
 			ensure => present,
 			content => template('spark/init.d.worker.erb'),

@@ -28,8 +28,8 @@ class spark::install(
 	      before => Exec['extract-spark'],
 	    }
 	}
-
-	exec { 'extract-spark':
+	
+    exec { 'extract-spark':
 		command => "/bin/chmod a+x ${download_dir}/${tarball} && /bin/tar -xzf ${download_dir}/${tarball} -C ${install_dir}",
 		creates => "${install_dir}/${version}",
 		require => File[$install_dir],
@@ -41,4 +41,5 @@ class spark::install(
 		require => Exec['extract-spark'],
 		before => File['/etc/init.d/spark'],
 	}
+
 }

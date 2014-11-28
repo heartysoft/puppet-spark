@@ -7,7 +7,7 @@ SDAEMON="<%= @install_dir %>/spark/sbin/stop-master.sh"
 
 start() {
   echo "Starting Spark Master" &&
-  exec $DAEMON &&
+  exec $DAEMON >> /var/log/spark-master.log 2>&1 &&
   echo "OK" &&
   return 0
 }

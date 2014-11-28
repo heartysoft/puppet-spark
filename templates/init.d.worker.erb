@@ -3,7 +3,9 @@
 NAME=spark
 PID_FILE=/var/run/$NAME.pid
 
-DAEMON="<%= @install_dir %>/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://<%= @master_node %>:<%= @master_port %><% if @max_worker_cores %> -c <%= @max_worker_cores %><% end %><% if @max_worker_ram %> -m <%= @max_worker_ram %><% end %>"
+F=<%= @install_dir %>/spark/conf/spark-env.sh;[ -f $F ] && . $F
+
+DAEMON="<%= @install_dir %>/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://<%= @master_node %>:<%= @master_port %>"
 
 start() {
   if [ -f $PID_FILE ]
@@ -57,24 +59,24 @@ status() {
 case "$1" in
   status)
     status
-	;;
+  ;;
   start)
     echo -n "Starting daemon: "$NAME
     start
-	;;
+  ;;
   stop)
     echo -n "Stopping daemon: "$NAME
     stop
-	;;
+  ;;
   restart)
     echo -n "Restarting daemon: "$NAME
-	  stop
+    stop
     start
-	;;
+  ;;
 
   *)
-	echo "Usage: "$1" {status|start|stop|restart}"
-	exit 1
+  echo "Usage: "$1" {status|start|stop|restart}"
+  exit 1
 esac
 
 exit 0
