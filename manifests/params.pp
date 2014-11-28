@@ -1,6 +1,6 @@
 class spark::params {
 	$master_port = '7077'
-	$version = 'spark-1.1.1-bin-hadoop1'
+	$version = 'spark-1.1.0-bin-hadoop1'
 	$download_url = "http://d3kbcqa49mib13.cloudfront.net/${version}.tgz"
 	$download_dir = '/tmp'
 	$install_method = 'wget'
