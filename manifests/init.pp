@@ -8,11 +8,11 @@ class spark (
 	$max_worker_cores = $spark::params::max_worker_cores,
 	$master_port = $spark::params::master_port,
 	$version = $spark::params::version,
-	$download_url = $spark::params::download_url,
-	$download_dir = $spark::params::download_dir,
+	$download_url = "http://d3kbcqa49mib13.cloudfront.net/${version}.tgz", #related to version...can't find a way to stash this in params
+	$download_dir = $spark::params::install_dir,
 	$install_method = $spark::params::install_method,
 	$install_dir = $spark::params::install_dir,
-	$tarball = $spark::params::tarball
+	$tarball = "${version}.tgz"
 	) inherits spark::params {
 	
 	anchor {'spark::begin:':} ->
